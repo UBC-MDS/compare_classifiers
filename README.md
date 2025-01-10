@@ -35,7 +35,7 @@ confusion_matrices(estimators, X, y)
 # show fit time and f1 scores of estimators' cross validation results:
 compare_f1(estimators, X, y) 
 
-# show cross validation fit time and f1 scores of a classifier by stacking the estimators
+# show cross validation fit time and f1 scores of a classifier by stacking the estimators:
 ensemble_compare_f1(estimators, X, y, 'stacking') 
 ```
 
@@ -44,6 +44,7 @@ At last, you can decide to predict on test data through voting or stacking the e
 ```python
 from ensemble_best_method.ensemble_predict import ensemble_predict
 
+# predict class labels for unseen data through voting results of estimators:
 ensemble_predict(estimators, X, y, ensemble_method, unseen_data, 'voting') 
 ```
 
