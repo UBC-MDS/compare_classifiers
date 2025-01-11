@@ -3,7 +3,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = ensemble_best_method
+SPHINXPROJ    = compare_classifiers
 SOURCEDIR     = .
 BUILDDIR      = _build
 

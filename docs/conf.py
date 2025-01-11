@@ -6,7 +6,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u"ensemble_best_method"
+project = u"compare_classifiers"
 copyright = u"2025, Bryan Lee"
 author = u"Bryan Lee"
 

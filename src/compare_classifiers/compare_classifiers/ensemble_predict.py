@@ -7,8 +7,8 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
         Individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: label of estimator, and a model: the estimator.
 
     X_train : Pandas data frame
-        Training data without classes.
-
+        Data frame containing training data along with n features.
+        
     y_train : Pandas series
         Target class labels for data in X_train.
 
@@ -25,6 +25,10 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
 
     Examples
     --------
+    >>> estimators = [
+    ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+    ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+    ... ]
     >>> ensemble_predict(estimators, X, y, unseen_data, 'voting')
     """    
     return None
