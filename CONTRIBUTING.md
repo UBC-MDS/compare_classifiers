@@ -46,13 +46,15 @@ Ready to contribute? Here's how to set up `compare_classifiers` for local develo
 2. Install `compare_classifiers` using `poetry`:
 
     ```console
-    $ poetry install
+    $ poetry install compare_classifiers
+
     ```
 
 3. Use `git` (or similar) to create a branch for local development and make your changes:
 
     ```console
     $ git checkout -b name-of-your-bugfix-or-feature
+
     ```
 
 4. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
