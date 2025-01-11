@@ -40,10 +40,10 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `ensemble_best_method` for local development.
+Ready to contribute? Here's how to set up `compare_classifiers` for local development.
 
-1. Download a copy of `ensemble_best_method` locally.
-2. Install `ensemble_best_method` using `poetry`:
+1. Download a copy of `compare_classifiers` locally.
+2. Install `compare_classifiers` using `poetry`:
 
     ```console
     $ poetry install
@@ -69,5 +69,5 @@ Before you submit a pull request, check that it meets these guidelines:
 
 ## Code of Conduct
 
-Please note that the `ensemble_best_method` project is released with a
+Please note that the `compare_classifiers` project is released with a
 Code of Conduct. By contributing to this project you agree to abide by its terms.

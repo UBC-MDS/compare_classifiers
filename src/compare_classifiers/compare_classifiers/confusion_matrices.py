@@ -5,7 +5,7 @@ def confusion_matrices(estimators, X_train, y_train):
     Parameters:
     -----------
     estimators : list of tuples
-        A list of (name, estimator) tuples, where each estimator implements
+        A list of (name, estimator) tuples, each containing a string: name/label of estimator, and a model: the estimator, which implements
         the scikit-learn API (`fit`, `predict`, etc.).
 
     X_train : Pandas data frame
@@ -25,6 +25,6 @@ def confusion_matrices(estimators, X_train, y_train):
     ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
     ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
     ... ]
-    >>> confusion_matrices(estimators, X_train, y_train)
+    >>> confusion_matrices(estimators, X, y)
     """
     pass
