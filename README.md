@@ -16,7 +16,7 @@ as follows:
 ```python
 from ensemble_best_method.confusion_matrices import confusion_matrices
 from ensemble_best_method.compare_f1 import compare_f1
-from ensemble_best_method.ensumble_compare_f1 import ensemble_compare_f1
+from ensemble_best_method.ensemble_compare_f1 import ensemble_compare_f1
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
