@@ -1,6 +1,6 @@
-def ensemble_compare_f1(estimators, X_train, y_train):
+def compare_f1(estimators, X, y):
     """
-    Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
+    Show cross validation results, including fit time and f1 scores for each estimator.
 
     Parameters
     ----------
@@ -14,24 +14,17 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     y_train : Pandas series
         Target class labels for data in X_train.
 
-    Returns
-    -------
-    Pandas data frame
-        A data frame showing cross validation results on training data, with 3 columns: fit_time, test_score, train_score and 2 rows: voting, stacking.
-    
-    Example:
+    Returns:
     --------
+    Pandas data frame
+        A data frame showing cross validation results on training data, with 3 columns: fit_time, test_score, train_score and 1 rows for each estimator.
+
+    Example:
+    -------- 
     >>> estimators = [
     ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
     ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
     ... ]
-    >>> ensemble_compare_f1(estimators, X, y)
+    >>> compare_f1(estimators, X, y)
     """
-    # ...existing code...
-
-# Example usage:
-# estimators = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())]
-# X_train = ... # feature matrix for training
-# y_train = ... # target vector for training
-# result = ensemble_compare_f1(estimators, X_train, y_train, method='stacking')
-# print(result)
+    pass
