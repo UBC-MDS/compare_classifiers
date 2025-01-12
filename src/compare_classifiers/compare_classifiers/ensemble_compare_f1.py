@@ -25,7 +25,7 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
     ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
     ... ]
-    ensemble_compare_f1(estimators, X, y)
+    >>> ensemble_compare_f1(estimators, X, y)
     """
     # ...existing code...
 

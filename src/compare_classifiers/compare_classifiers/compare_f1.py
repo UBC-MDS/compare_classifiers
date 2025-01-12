@@ -1,39 +1,30 @@
 def compare_f1(estimators, X, y):
     """
-    Evaluates the performance and timing of a scikit-learn pipeline. 
-    For each model in the list, the following metrics are calculated:
-    - F1 Score
-    - Accuracy
-    - Precision
-    - Recall
+    Show cross validation results, including fit time and f1 scores for each estimator.
 
     Parameters
     ----------
-    - estimators : list or pandas series
-        A scikit-learn pipeline containing one or more models or transformers.
+    estimators : list of tuples
+        A list of (name, estimator) tuples, consisting of individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements
+        the scikit-learn API (`fit`, `predict`, etc.).
     
-    - X : Pandas Data frame 
-        Feature matrix for training and testing.
-
-    - y : list or pandas series 
-        Target vector for training and testing.
+    X_train : Pandas data frame
+        Data frame containing training data along with n features.
+        
+    y_train : Pandas series
+        Target class labels for data in X_train.
 
     Returns:
     --------
-    - pandas DataFrame 
-        A DataFrame containing performance metrics (F1 Score, Accuracy, 
-        Precision, Recall).
+    Pandas data frame
+        A data frame showing cross validation results on training data, with 3 columns: fit_time, test_score, train_score and 1 rows for each estimator.
 
     Example:
     -------- 
-    >>> models = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())]
-    ... # X_train = ... # feature matrix for training
-    ... # y_train = ... # target vector for training
-    >>> compare_f1(pipeline, X_train, y_train)
+    >>> estimators = [
+    ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+    ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+    ... ]
+    >>> compare_f1(estimators, X, y)
     """
-
-# Example usage:
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) # generating training and testing split
-# estimators = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())] # generating list of models to score
-# result = compare_f1(estimators, X_train, y_train)
-# print(result)
+    pass
