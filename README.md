@@ -1,6 +1,22 @@
 # compare_classifiers
 
-Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking.
+Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking!
+
+This package is helpful when you are deciding whether to use a single Classifier or combine multiple well-performing Classifiers through an ensemble using Voting or Stacking to yield a more stable and trustworthy classification result. Each of the four functions serves a unique purpose:
+
+`confusion_matrices`: provides confusion matrices side-by-side for all Classifiers to compare their performances.
+
+`compare_f1`: provides a Pandas data frame, each row listing model fit time, and training and test scores for each Classifier.
+
+`ensemble_compare_f1`: provides a Pandas data frame containing model fit time, training and test scores for both Voting and Stacking ensembles, with each ensemble in its own row.
+
+`ensemble_predict`: provides classification predictions via Voting or Stacking multiple Classifiers.
+
+Before using `ensemble_predict` on test or unseen data, we recommend that you run each of the three other functions on training data to examine how Classifiers perform individually on their own, and the ensemble performances of Voting against Stacking to make a well-informed decision. Sometimes, an individual Classifier could generate a better controlled machine learning environment if its performance rivals that of an ensemble.
+
+## Contributors
+
+Ke Gao, Bryan Lee, Susannah Sun, Wangkai Zhu
 
 ## Installation
 
@@ -47,6 +63,10 @@ from compare_classifiers.ensemble_predict import ensemble_predict
 # predict class labels for unseen data through voting results of estimators:
 ensemble_predict(estimators, X, y, ensemble_method, unseen_data, 'voting') 
 ```
+
+## Similar Packages
+
+We are not aware of similar packages existing. Though there are available functions to present metrics for a single model and a single ensemble, we have not found functions that compare and display metrics and results for multiple models or ensembles all at once. Neither is there a function that predicts based on dynamic input of ensemble method.
 
 ## Contributing
 
