@@ -1,4 +1,4 @@
-from compare_classifiers.compare_classifiers.ensemble_predict import ensemble_predict
+from compare_classifiers.ensemble_predict import ensemble_predict
 
 import sys
 import os
