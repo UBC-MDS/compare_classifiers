@@ -19,21 +19,25 @@ seed = 524
 
 def test_data():
     """Create training and test data for function tests. Dataset is checked, cleaned and StandardScaled."""
+    # read dataset from .csv
     data = pd.read_csv(os.path.join(os.path.dirname(__file__), 'test_data.csv'))
+    # convert 'color' column to binary column 'is_red' with values 0 (white wine) and 1 (red wine)
     data['is_red'] = data['color'].apply(lambda x: 1 if x == 'red' else 0)
     data = data.drop(['color'], axis=1)
+    # split into training and test sets with 80/20 ratio and random_state
     train_df, test_df = train_test_split(data, test_size=0.2, random_state=seed)
     X_train, X_test, y_train, y_test = (train_df.drop(columns='quality'), test_df.drop(columns='quality'),
                                     train_df['quality'], test_df['quality']
                                     )
+    # apply StandardScaling to data since all columns are numerical (as a best practice)
     ss = StandardScaler()
     X_train_ss = ss.fit_transform(X_train)
     X_test_ss = ss.transform(X_test)
-
+    # apply RobustScaling to X_test to be used for test cases with pipeline estimators
     rs = RobustScaler()
     rs.fit(X_train)
     X_test_rs = rs.transform(X_test)
-
+    
     return {'X_train': X_train, 'X_train_ss': X_train_ss, 'X_test_ss': X_test_ss, 'X_test_rs': X_test_rs, 'y_train': y_train, 'y_test': y_test}
 
 
@@ -46,7 +50,11 @@ def models():
     gb = GradientBoostingClassifier(random_state=seed)
     knn5 = KNeighborsClassifier(n_neighbors=5)
     mnp = MLPClassifier(hidden_layer_sizes=(100,), max_iter=300, random_state=seed)
-    pipe = make_pipeline(RobustScaler(), svm)
+    pipe_svm = make_pipeline(RobustScaler(), svm)
+    pipe_rf = make_pipeline(RobustScaler(), rf)
+    pipe_knn5 = make_pipeline(RobustScaler(), knn5)
+    pipe_gb = make_pipeline(RobustScaler(), gb)
+    pipe_mnp = make_pipeline(RobustScaler(), mnp)
     
-    return {'rf': rf, 'svm': svm, 'logreg': logreg, 'gb': gb, 'knn5': knn5, 'mnp': mnp, 'pipe': pipe}
+    return {'rf': rf, 'svm': svm, 'logreg': logreg, 'gb': gb, 'knn5': knn5, 'mnp': mnp, 'pipe_svm': pipe_svm, 'pipe_rf': pipe_rf, 'pipe_knn5': pipe_knn5, 'pipe_gb': pipe_gb, 'pipe_mnp': pipe_mnp}
 

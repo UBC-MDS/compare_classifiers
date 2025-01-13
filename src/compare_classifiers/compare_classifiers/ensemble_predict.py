@@ -1,4 +1,5 @@
 from sklearn.ensemble import VotingClassifier
+from sklearn.ensemble import StackingClassifier
 
 def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     """predict class for test data with provided estimators and whether predicting through Voting or Stacking
@@ -38,5 +39,6 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
         ev = ev.fit(X_train, y_train)
         return ev.predict(test_data)
     if ensemble_method == 'stacking':
-        #TODO!!!
-        pass
+        sc = StackingClassifier(estimators)
+        sc = sc.fit(X_train, y_train)
+        return sc.predict(test_data)
