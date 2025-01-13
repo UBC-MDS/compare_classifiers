@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from compare_classifiers.compare_classifiers.ensemble_predict import ensemble_predict
+from compare_classifiers.ensemble_predict import ensemble_predict
 
 from tests.test_data import test_data, models
 
