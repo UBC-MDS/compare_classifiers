@@ -1,3 +1,8 @@
+from sklearn.ensemble import VotingClassifier, StackingClassifier
+from sklearn.model_selection import cross_validate
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+
 def ensemble_compare_f1(estimators, X_train, y_train):
     """
     Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
@@ -27,11 +32,64 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     ... ]
     >>> ensemble_compare_f1(estimators, X, y)
     """
-    # ...existing code...
+    if not estimators:
+        raise ValueError("Invalid 'estimators' parameter: empty list")
+
+    results = []
+
+    for method in ['voting', 'stacking']:
+        if method == 'voting':
+            ensemble = VotingClassifier(estimators=estimators, voting='hard')
+        if method == 'stacking':
+            ensemble = StackingClassifier(estimators=estimators, final_estimator=LogisticRegression())
+
+        cv_results = cross_validate(ensemble, X_train, y_train, cv=5, scoring='f1_macro', return_train_score=True)
+        
+        results_df = pd.DataFrame({
+            'method': method,
+            'fit_time': cv_results['fit_time'].mean(),
+            'test_f1_score': cv_results['test_score'].mean(),
+            'train_f1_score': cv_results['train_score'].mean()
+        }, index=[0])
+
+        results.append(results_df)
+
+    return pd.concat(results, ignore_index=True)
+
 
 # Example usage:
 # estimators = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())]
 # X_train = ... # feature matrix for training
 # y_train = ... # target vector for training
-# result = ensemble_compare_f1(estimators, X_train, y_train, method='stacking')
-# print(result)
+# result = ensemble_compare_f1(estimators, X_train, y_train)
+# print(result[['fit_time', 'test_f1_score', 'train_f1_score']])
+
+# %%
+
+if __name__ == "__main__":
+
+    from sklearn.datasets import load_iris
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.svm import LinearSVC
+
+    # Load example data
+    iris = load_iris()
+    X, y = iris.data, iris.target
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Define estimators
+    estimators = [
+        ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+        ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+    ]
+
+    # Call the ensemble_compare_f1 function
+    result = ensemble_compare_f1(estimators, X_train, y_train)
+    print("Ensemble method results:")
+    print(result)
+# %%
