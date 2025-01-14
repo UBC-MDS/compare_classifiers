@@ -8,10 +8,10 @@ def confusion_matrices(estimators, X_train, y_train):
         A list of (name, estimator) tuples, each containing a string: name/label of estimator, and a model: the estimator, which implements
         the scikit-learn API (`fit`, `predict`, etc.).
 
-    X_train : Pandas data frame
-        Data frame containing training data along with n features.
+    X_train : Pandas data frame or Numpy array
+        Data frame containing training data along with n features or ndarray with no feature names.
         
-    y_train : Pandas series
+    y_train : Pandas series or Numpy array
         Target class labels for data in X_train.
     
     Returns:

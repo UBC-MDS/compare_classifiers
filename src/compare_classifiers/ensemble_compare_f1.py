@@ -14,9 +14,9 @@ def ensemble_compare_f1(estimators, X_train, y_train):
         the scikit-learn API (`fit`, `predict`, etc.).
     
     X_train : Pandas data frame
-        Data frame containing training data along with n features.
+        Data frame containing training data along with n features or ndarray with no feature names.
         
-    y_train : Pandas series
+    y_train : Pandas series or Numpy array
         Target class labels for data in X_train.
 
     Returns
@@ -66,30 +66,30 @@ def ensemble_compare_f1(estimators, X_train, y_train):
 
 # %%
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    from sklearn.datasets import load_iris
-    from sklearn.model_selection import train_test_split
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.pipeline import make_pipeline
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.svm import LinearSVC
+#     from sklearn.datasets import load_iris
+#     from sklearn.model_selection import train_test_split
+#     from sklearn.ensemble import RandomForestClassifier
+#     from sklearn.pipeline import make_pipeline
+#     from sklearn.preprocessing import StandardScaler
+#     from sklearn.svm import LinearSVC
 
-    # Load example data
-    iris = load_iris()
-    X, y = iris.data, iris.target
+#     # Load example data
+#     iris = load_iris()
+#     X, y = iris.data, iris.target
 
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#     # Split the data into training and testing sets
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Define estimators
-    estimators = [
-        ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
-        ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
-    ]
+#     # Define estimators
+#     estimators = [
+#         ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+#         ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+#     ]
 
-    # Call the ensemble_compare_f1 function
-    result = ensemble_compare_f1(estimators, X_train, y_train)
-    print("Ensemble method results:")
-    print(result)
+#     # Call the ensemble_compare_f1 function
+#     result = ensemble_compare_f1(estimators, X_train, y_train)
+#     print("Ensemble method results:")
+#     print(result)
 # %%

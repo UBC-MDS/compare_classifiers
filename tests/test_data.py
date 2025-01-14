@@ -9,6 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import RandomForestRegressor
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import RobustScaler
@@ -44,6 +45,8 @@ def test_data():
 def models():
     """Create models as estimators for function tests.
     Note: Please use individual classifiers with X_train_ss and X_test_ss and pipeline with X_train and X_test_rs"""
+
+    # valid data
     rf = RandomForestClassifier(n_estimators=10, random_state=seed)
     svm = SVC(kernel='rbf', decision_function_shape='ovr', random_state=seed)
     logreg = LogisticRegression(multi_class='multinomial', solver='lbfgs', random_state=seed)
@@ -55,6 +58,10 @@ def models():
     pipe_knn5 = make_pipeline(RobustScaler(), knn5)
     pipe_gb = make_pipeline(RobustScaler(), gb)
     pipe_mnp = make_pipeline(RobustScaler(), mnp)
+
+    # invalid data
+    rfr = RandomForestRegressor()
+    pipe_regressor = make_pipeline(RobustScaler(), rfr)
     
-    return {'rf': rf, 'svm': svm, 'logreg': logreg, 'gb': gb, 'knn5': knn5, 'mnp': mnp, 'pipe_svm': pipe_svm, 'pipe_rf': pipe_rf, 'pipe_knn5': pipe_knn5, 'pipe_gb': pipe_gb, 'pipe_mnp': pipe_mnp}
+    return {'rf': rf, 'svm': svm, 'logreg': logreg, 'gb': gb, 'knn5': knn5, 'mnp': mnp, 'pipe_svm': pipe_svm, 'pipe_rf': pipe_rf, 'pipe_knn5': pipe_knn5, 'pipe_gb': pipe_gb, 'pipe_mnp': pipe_mnp, 'rfr': rfr, 'pipe_regressor': pipe_regressor}
 

@@ -19,7 +19,7 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     X_train : Pandas data frame or Numpy array
         Data frame containing training data along with n features or ndarray with no feature names.
         
-    y_train : Pandas series
+    y_train : Pandas series or Numpy array
         Target class labels for data in X_train.
 
     ensemble_method : str
@@ -45,6 +45,9 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     # Check if estimators is a list
     if not isinstance(estimators, list):
         raise TypeError(ESTIMATOR_ERROR)
+    # Check if estimators is a list
+    if len(estimators) == 0:
+        raise ValueError(ESTIMATOR_ERROR)
     # Iterate through each element in the list
     for item in estimators:
         # Check if the item is a tuple with exactly two elements
@@ -54,8 +57,12 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
         if not isinstance(item[0], str):
             raise TypeError(ESTIMATOR_ERROR)
         # Check if the second element is an instance of an sklearn classifier
-        if not (is_classifier(item[1]) or isinstance(item[1], sklearn.pipeline.Pipeline)):
+        is_classifier_pipe = isinstance(item[1], sklearn.pipeline.Pipeline) and is_classifier(sklearn.item[1].steps[-1][1])
+        if not (is_classifier(item[1]) or is_classifier_pipe):
             raise TypeError(ESTIMATOR_ERROR)
+    # Check there are more than one estimators
+    if len(estimators) == 1:
+        raise ValueError('first parameter must be a list of at least 2 tuples')
     
     # Check if X_train is Pandas data frame or Numpy array
     if not (isinstance(X_train, pd.DataFrame) or isinstance(X_train, np.ndarray)):
@@ -67,10 +74,12 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
         raise ValueError('second parameter seems to be an empty Pandas data frame or Numpy array. Please ensure data is present.') 
     
     # Check if y_train is Pandas series
-    if not isinstance(y_train, pd.Series):
-        raise TypeError('third parameter has to be a Pandas series')
+    if not (isinstance(y_train, pd.Series) or isinstance(y_train, np.ndarray)):
+        raise TypeError('third parameter has to be a Pandas series or Numpy array containing target class values for training data')
     # Check if y_train contains data
-    if y_train.empty:
+    empty_series = isinstance(y_train, pd.Series) and y_train.empty
+    empty_ndarr = isinstance(y_train, np.ndarray) and y_train.size == 0
+    if (empty_series or empty_ndarr):
         raise ValueError('third parameter seems to be an empty Pandas series. Please ensure your series contains data.') 
     
     # Check if ensemble_method is string
