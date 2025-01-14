@@ -3,7 +3,7 @@ from sklearn.model_selection import cross_validate
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-def ensemble_compare_f1(estimators, X_train, y_train, method='voting'):
+def ensemble_compare_f1(estimators, X_train, y_train):
     """
     Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
 
@@ -19,9 +19,6 @@ def ensemble_compare_f1(estimators, X_train, y_train, method='voting'):
     y_train : Pandas series
         Target class labels for data in X_train.
 
-    method : str, optional (default='voting')
-        The ensemble method to use. Options are 'voting' or 'stacking'.
-
     Returns
     -------
     Pandas data frame
@@ -35,32 +32,36 @@ def ensemble_compare_f1(estimators, X_train, y_train, method='voting'):
     ... ]
     >>> ensemble_compare_f1(estimators, X, y)
     """
-    if method not in ['voting', 'stacking']:
-        raise ValueError("Method must be either 'voting' or 'stacking'")
+    if not estimators:
+        raise ValueError("Invalid 'estimators' parameter: empty list")
 
-    if method == 'voting':
-        ensemble = VotingClassifier(estimators=estimators, voting='hard')
-    if method == 'stacking':
-        ensemble = StackingClassifier(estimators=estimators, final_estimator=LogisticRegression())
+    results = []
 
-    cv_results = cross_validate(ensemble, X_train, y_train, cv=5, scoring='f1_macro', return_train_score=True)
-    
+    for method in ['voting', 'stacking']:
+        if method == 'voting':
+            ensemble = VotingClassifier(estimators=estimators, voting='hard')
+        if method == 'stacking':
+            ensemble = StackingClassifier(estimators=estimators, final_estimator=LogisticRegression())
 
-    results_df = pd.DataFrame({
-        'fit_time': cv_results['fit_time'],
-        'test_f1_score': cv_results['test_score'],
-        'train_f1_score': cv_results['train_score']
-    }, index=range(len(cv_results['fit_time'])))
+        cv_results = cross_validate(ensemble, X_train, y_train, cv=5, scoring='f1_macro', return_train_score=True)
+        
+        results_df = pd.DataFrame({
+            'method': method,
+            'fit_time': cv_results['fit_time'].mean(),
+            'test_f1_score': cv_results['test_score'].mean(),
+            'train_f1_score': cv_results['train_score'].mean()
+        }, index=[0])
 
-    return results_df
+        results.append(results_df)
+
+    return pd.concat(results, ignore_index=True)
 
 
 # Example usage:
 # estimators = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())]
 # X_train = ... # feature matrix for training
 # y_train = ... # target vector for training
-# method = 'voting'
-# result = ensemble_compare_f1(estimators, X_train, y_train, method='stacking')
+# result = ensemble_compare_f1(estimators, X_train, y_train)
 # print(result[['fit_time', 'test_f1_score', 'train_f1_score']])
 
 # %%
@@ -87,13 +88,8 @@ if __name__ == "__main__":
         ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
     ]
 
-    # Call the ensemble_compare_f1 function with voting method
-    result_voting = ensemble_compare_f1(estimators, X_train, y_train, method='voting')
-    print("Voting method results:")
-    print(result_voting)
-
-    # Call the ensemble_compare_f1 function with stacking method
-    result_stacking = ensemble_compare_f1(estimators, X_train, y_train, method='stacking')
-    print("Stacking method results:")
-    print(result_stacking)
+    # Call the ensemble_compare_f1 function
+    result = ensemble_compare_f1(estimators, X_train, y_train)
+    print("Ensemble method results:")
+    print(result)
 # %%
