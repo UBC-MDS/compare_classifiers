@@ -1,6 +1,3 @@
-# import sys
-# import os
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from compare_classifiers.error_handling.check_valid_estimators import check_valid_estimators
 from compare_classifiers.error_handling.check_valid_X import check_valid_X
 from compare_classifiers.error_handling.check_valid_y import check_valid_y
@@ -50,7 +47,7 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     # Check if X_train is valid or raise errors
     check_valid_X(X_train, 'second')
     
-    # Check if y_train is Pandas series
+    # Check if y_train is valid or raise errors
     check_valid_y(y_train, 'third')
     
     # Check if ensemble_method is string

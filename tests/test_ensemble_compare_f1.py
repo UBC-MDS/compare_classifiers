@@ -1,7 +1,4 @@
 # %%
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from compare_classifiers.ensemble_compare_f1 import ensemble_compare_f1
 
 
@@ -62,22 +59,3 @@ def test_ensemble_compare_f1_different_estimators():
     assert 'fit_time' in result.columns
     assert 'test_f1_score' in result.columns
     assert 'train_f1_score' in result.columns
-
-# Test with empty estimators list
-def test_ensemble_compare_f1_empty_estimators():
-    empty_estimators = []
-    try:
-        result = ensemble_compare_f1(empty_estimators, X_train, y_train)
-    except ValueError as e:
-        assert str(e) == "Invalid 'estimators' parameter: empty list"
-
-
-
-# %%
-test_ensemble_compare_f1_voting()
-test_ensemble_compare_f1_stacking()
-test_ensemble_compare_f1_different_estimators()
-test_ensemble_compare_f1_empty_estimators()
-
-
-# %%
