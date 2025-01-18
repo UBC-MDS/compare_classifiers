@@ -1,3 +1,7 @@
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+import time
+
 def compare_f1(estimators, X, y):
     """
     Show cross validation results, including fit time and f1 scores for each estimator.
@@ -27,4 +31,35 @@ def compare_f1(estimators, X, y):
     ... ]
     >>> compare_f1(estimators, X, y)
     """
-    pass
+
+    results = []
+
+    for name, estimator in estimators:
+        try:
+            start_time = time.time()
+            
+            cv_results = cross_val_score(estimator, X, y, scoring='f1', cv=5)
+            fit_time = time.time() - start_time
+            
+            test_score = cv_results.mean()
+            
+            estimator.fit(X, y)
+            train_score = cross_val_score(estimator, X, y, scoring='f1', cv=5).mean()
+            
+            results.append({
+                'Estimator': name,
+                'Fit Time': fit_time,
+                'Test Score (F1)': test_score,
+                'Train Score (F1)': train_score
+            })
+        
+        except Exception as e:
+            print(f"Error with estimator {name}: {e}")
+            results.append({
+                'Estimator': name,
+                'Fit Time': None,
+                'Test Score (F1)': None,
+                'Train Score (F1)': None
+            })
+
+    return pd.DataFrame(results)
