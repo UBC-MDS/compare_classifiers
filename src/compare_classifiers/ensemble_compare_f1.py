@@ -1,3 +1,7 @@
+from compare_classifiers.error_handling.check_valid_estimators import check_valid_estimators
+from compare_classifiers.error_handling.check_valid_X import check_valid_X
+from compare_classifiers.error_handling.check_valid_y import check_valid_y
+
 from sklearn.ensemble import VotingClassifier, StackingClassifier
 from sklearn.model_selection import cross_validate
 import pandas as pd
@@ -32,8 +36,14 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     ... ]
     >>> ensemble_compare_f1(estimators, X, y)
     """
-    if not estimators:
-        raise ValueError("Invalid 'estimators' parameter: empty list")
+    # Check if estimators is valid or raise errors
+    check_valid_estimators(estimators, 'first')
+    
+    # Check if X_train is valid or raise errors
+    check_valid_X(X_train, 'second')
+    
+    # Check if y_train is valid or raise errors
+    check_valid_y(y_train, 'third')
 
     results = []
 
@@ -55,41 +65,3 @@ def ensemble_compare_f1(estimators, X_train, y_train):
         results.append(results_df)
 
     return pd.concat(results, ignore_index=True)
-
-
-# Example usage:
-# estimators = [('lr', LogisticRegression()), ('rf', RandomForestClassifier())]
-# X_train = ... # feature matrix for training
-# y_train = ... # target vector for training
-# result = ensemble_compare_f1(estimators, X_train, y_train)
-# print(result[['fit_time', 'test_f1_score', 'train_f1_score']])
-
-# %%
-
-# if __name__ == "__main__":
-
-#     from sklearn.datasets import load_iris
-#     from sklearn.model_selection import train_test_split
-#     from sklearn.ensemble import RandomForestClassifier
-#     from sklearn.pipeline import make_pipeline
-#     from sklearn.preprocessing import StandardScaler
-#     from sklearn.svm import LinearSVC
-
-#     # Load example data
-#     iris = load_iris()
-#     X, y = iris.data, iris.target
-
-#     # Split the data into training and testing sets
-#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-#     # Define estimators
-#     estimators = [
-#         ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
-#         ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
-#     ]
-
-#     # Call the ensemble_compare_f1 function
-#     result = ensemble_compare_f1(estimators, X_train, y_train)
-#     print("Ensemble method results:")
-#     print(result)
-# %%

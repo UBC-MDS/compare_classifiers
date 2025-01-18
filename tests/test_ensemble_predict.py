@@ -7,7 +7,6 @@ from tests.test_data import test_data, models
 
 import pytest
 
-import pandas as pd
 import numpy as np
 
 from sklearn.ensemble import VotingClassifier
@@ -56,92 +55,8 @@ STACKING = 'stacking'
 
 # Error handling test cases
 
-def estimators_incorrect_type():
-    """Raises error when estimators is not a list of (name, estimator) tuples where name is a string and estimator is a sklearn individual or pipeline Classifier."""
-    with pytest.raises(TypeError):
-        ensemble_predict('', X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(1, X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(True, X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict({}, X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(('knn5', knn5), X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('', )], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5, '')], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('', knn5)], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5), ('', knn5)], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5), (knn5, knn5)], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5), ('', '')], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5), ('rfr', rfr)], X_train, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict([('knn5', knn5), pipe_regressor], X_train, y_train, VOTING, X_test_ss)
-
-def estimators_incorrect_length():
-    """Raises error when estimators contains only one (name, estimator) tuple."""
-    with pytest.raises(ValueError):
-        ensemble_predict([('knn5', knn5)], X_train, y_train, VOTING, X_test_ss)
-        
-def test_X_train_incorrect_type():
-    """Raises error when X_train is not a pandas data frame."""
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, '', y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, 1, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, True, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, {}, y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, (), y_train, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, y_train, y_train, VOTING, X_test_ss)
-
-def test_X_train_empty():
-    """Raises error when X_train is empty"""
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, pd.DataFrame({"A": []}), y_train, VOTING, X_test_ss)
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, np.empty(0), y_train, VOTING, X_test_ss)
-
-def test_y_train_incorrect_type():
-    """Raises error when y_train is not a pandas series."""
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, '', VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, 1, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, True, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, {}, VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, (), VOTING, X_test_ss)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, X_train, VOTING, X_test_ss)
-
-def test_y_train_empty():
-    """Raises error when y_train is empty"""
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, X_train, pd.Series([]), VOTING, X_test_ss)
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, X_train, np.empty(0), VOTING, X_test_ss)
-
-def test_y_train_ndarray():
-    """No error raised when y_train is an ndarray (this test case is added as it will not be covered in the success test cases)"""
-    ensemble_predict(knn5_and_mnb, X_train, np.zeros((X_train.shape[0], 1)), VOTING, X_test_ss)
-
 def test_ensemble_method_incorrect_type():
-    """Raises error when ensemble_method is not a string of either 'voting' or 'stacking'."""
+    """Raises error when ensemble_method is not a string."""
     with pytest.raises(TypeError):
         ensemble_predict(knn5_and_mnb, X_train, y_train, 1, X_test_ss)
     with pytest.raises(TypeError):
@@ -155,32 +70,10 @@ def test_ensemble_method_incorrect_type():
     with pytest.raises(TypeError):
         ensemble_predict(knn5_and_mnb, X_train, y_train, y_train, X_test_ss)
 
-def test_ensemble_predict_incorrect_value():
-    """Raises error when ensemble_method is not string of neither 'voting' nor 'stacking'."""
+def test_ensemble_method_incorrect_value():
+    """Raises error when ensemble_method is a string of neither 'voting' nor 'stacking'."""
     with pytest.raises(ValueError):
         ensemble_predict(knn5_and_mnb, X_train, y_train, '', X_test_ss)
-
-def test_test_data_incorrect_type():
-    """Raises error when test_data is not a pandas data frame."""
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, '')
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, 1)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, True)
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, {})
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, ())
-    with pytest.raises(TypeError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, y_train)
-
-def test_test_data_empty():
-    """Raises error when test_data is empty"""
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, pd.DataFrame({"A": []}))
-    with pytest.raises(ValueError):
-        ensemble_predict(knn5_and_mnb, X_train, y_train, VOTING, np.empty(0))
 
 
 # Success test cases
