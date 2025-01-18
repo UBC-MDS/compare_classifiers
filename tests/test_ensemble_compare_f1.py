@@ -1,7 +1,6 @@
 # %%
 from compare_classifiers.ensemble_compare_f1 import ensemble_compare_f1
 
-
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
