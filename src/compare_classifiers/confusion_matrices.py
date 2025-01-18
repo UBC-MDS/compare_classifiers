@@ -29,8 +29,11 @@ def confusion_matrices(estimators, X_train, X_test, y_train, y_test):
     
     Returns:
     --------
-    None
-        Displays confusion matrices for each estimator using the provided training data.
+    fig : matplotlib.figure.Figure
+        The figure object containing all the subplots (axes) for the confusion matrices. This object manages the layout and rendering of the entire plot.
+    
+    axes : numpy.ndarray or list of matplotlib.axes.Axes
+        A 2D array (or list) of axes objects where the confusion matrices are plotted. Each element represents an individual subplot (axis) within the grid.
 
     Example:
     --------
@@ -57,11 +60,13 @@ def confusion_matrices(estimators, X_train, X_test, y_train, y_test):
 
     labels = [e[0] for e in estimators]
     classifiers = [e[1] for e in estimators]
+
+    # Fit each estimator
     for cls in classifiers:
         cls.fit(X_train, y_train)
 
+    # Plot confusion matrices in a single column
     fig, axes = plt.subplots(nrows=len(classifiers), ncols=1, figsize=(5*len(classifiers),5*len(classifiers)))
-
     for cls, ax in zip(classifiers, axes.flatten()):
         ConfusionMatrixDisplay(
             confusion_matrix=confusion_matrix(y_test[:50], cls.predict(X_test)[:50], labels=cls.classes_), 

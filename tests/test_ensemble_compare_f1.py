@@ -1,13 +1,16 @@
 # %%
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from tests.test_data import models
+
 from compare_classifiers.ensemble_compare_f1 import ensemble_compare_f1
+
+import pandas as pd
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
 
 # Get test data
 iris = load_iris()
@@ -22,39 +25,51 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-estimators = [
-    ('KNN', KNeighborsClassifier(n_neighbors=5)),
-    ('LogisticRegression', LogisticRegression(random_state=42))
-]
+# Create test estimators
+model_dict = models()
+knn5_and_mnb = model_dict['knn5_and_mnb']
+two_pipes = model_dict['two_pipes']
 
-# Test voting method
-def test_ensemble_compare_f1_voting():
-    result = ensemble_compare_f1(estimators, X_train, y_train)
-    voting_result = result[result['method'] == 'voting']
-    assert 'fit_time' in voting_result.columns
-    assert 'test_f1_score' in voting_result.columns
-    assert 'train_f1_score' in voting_result.columns
-    assert voting_result['test_f1_score'].between(0, 1).all()  # Verify the range of test_f1_score
-    assert voting_result['train_f1_score'].between(0, 1).all()  # Verify the range of train_f1_score
 
-# Test stacking method
-def test_ensemble_compare_f1_stacking():
-    result = ensemble_compare_f1(estimators, X_train, y_train)
-    stacking_result = result[result['method'] == 'stacking']
-    assert 'fit_time' in stacking_result.columns
-    assert 'test_f1_score' in stacking_result.columns
-    assert 'train_f1_score' in stacking_result.columns
-    assert stacking_result['test_f1_score'].between(0, 1).all()  # Verify the range of test_f1_score
-    assert stacking_result['train_f1_score'].between(0, 1).all()  # Verify the range of train_f1_score
+def test_ensemble_compare_f1_ind():
+    """Returns data frame with fit time, test score and train score for voting and stacking ensembles for individual estimators."""
+    result = ensemble_compare_f1(knn5_and_mnb, X_train, y_train)
+    # Check that result is a pandas DataFrame
+    assert isinstance(result, pd.DataFrame)
+    
+    # Check that the DataFrame has the correct columns
+    assert set(result.columns) == {'method', 'fit_time', 'test_f1_score', 'train_f1_score'}
 
-# Test with different estimators
-def test_ensemble_compare_f1_different_estimators():
-    new_estimators = [
-        ('RandomForest', RandomForestClassifier(n_estimators=10, random_state=42)),
-        ('SVC', SVC(kernel='linear', random_state=42))
-    ]
-    result = ensemble_compare_f1(new_estimators, X_train, y_train)
-    assert not result.empty
-    assert 'fit_time' in result.columns
-    assert 'test_f1_score' in result.columns
-    assert 'train_f1_score' in result.columns
+    # Check that each row corresponds to an estimator
+    assert result.shape[0] == 2
+
+    # Ensure that all rows have non-null values for fit time, test score, and train score
+    for index, row in result.iterrows():
+        assert row['method'] in ['voting', 'stacking']
+        assert row['fit_time'] is not None
+        assert row['test_f1_score'] is not None
+        assert row['train_f1_score'] is not None
+        assert 0 <= row['test_f1_score'] <= 1  # Verify the range of test_f1_score
+        assert 0 <= row['train_f1_score'] <= 1  # Verify the range of train_f1_score
+
+
+def test_ensemble_compare_f1_pipe():
+    """Returns data frame with fit time, test score and train score for voting and stacking ensembles for pipeline estimators."""
+    result = ensemble_compare_f1(two_pipes, X_train, y_train)
+    # Check that result is a pandas DataFrame
+    assert isinstance(result, pd.DataFrame)
+    
+    # Check that the DataFrame has the correct columns
+    assert set(result.columns) == {'method', 'fit_time', 'test_f1_score', 'train_f1_score'}
+
+    # Check that each row corresponds to an estimator
+    assert result.shape[0] == 2
+
+    # Ensure that all rows have non-null values for fit time, test score, and train score
+    for index, row in result.iterrows():
+        assert row['method'] in ['voting', 'stacking']
+        assert row['fit_time'] is not None
+        assert row['test_f1_score'] is not None
+        assert row['train_f1_score'] is not None
+        assert 0 <= row['test_f1_score'] <= 1  # Verify the range of test_f1_score
+        assert 0 <= row['train_f1_score'] <= 1  # Verify the range of train_f1_score
