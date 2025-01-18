@@ -1,8 +1,8 @@
 # %%
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from tests.test_data import models
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+from test_data import models
 
 from compare_classifiers.ensemble_compare_f1 import ensemble_compare_f1
 
