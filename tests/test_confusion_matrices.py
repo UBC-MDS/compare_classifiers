@@ -17,28 +17,12 @@ y_test = data_dict['y_test']
 
 model_dict = models()
 knn5 = model_dict['knn5']
-knn5_and_mnb = [
-    ('knn5', knn5),
-    ('mnp', model_dict['mnp'])
-]
-two_pipes = [
-    ('pipe_rf', model_dict['pipe_rf']),
-    ('pipe_svm', model_dict['pipe_svm'])
-]
-multi_ind = [
-    ('logreg', model_dict['logreg']),
-    ('gb', model_dict['gb']),
-    ('svm', model_dict['svm']),
-    ('rf', model_dict['rf']),
-    ('knn5', knn5)
-]
-multi_pipe = [
-    ('pipe_svm', model_dict['pipe_svm']),
-    ('pipe_rf', model_dict['pipe_rf']),
-    ('pipe_knn5', model_dict['pipe_knn5']),
-    ('pipe_gb', model_dict['pipe_gb']),
-    ('pipe_mnp', model_dict['pipe_mnp'])
-]
+knn5 = model_dict['knn5']
+knn5_and_mnb = model_dict['knn5_and_mnb']
+two_pipes = model_dict['two_pipes']
+multi_ind = model_dict['multi_ind']
+multi_pipe = model_dict['multi_pipe']
+
 
 def test_individual_success():
     """When estimators is a list of individual Classifiers, returns the plot containing one confusion matrix for each estimator."""
