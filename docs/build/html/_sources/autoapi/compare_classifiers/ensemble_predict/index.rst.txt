@@ -1,0 +1,57 @@
+compare_classifiers.ensemble_predict
+====================================
+
+.. py:module:: compare_classifiers.ensemble_predict
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   compare_classifiers.ensemble_predict.METHOD_ERROR
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   compare_classifiers.ensemble_predict.ensemble_predict
+
+
+Module Contents
+---------------
+
+.. py:data:: METHOD_ERROR
+   :value: 'fourth parameter has to be a string of two possible values: "voting" and "stacking"'
+
+
+.. py:function:: ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data)
+
+   predict class for test data with provided estimators and whether predicting through Voting or Stacking
+
+   :param estimators: A list of (name, estimator) tuples, consisting of individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements
+                      the scikit-learn API (`fit`, `predict`, etc.).
+   :type estimators: list of tuples
+   :param X_train: Data frame containing training data along with n features or ndarray with no feature names.
+   :type X_train: Pandas data frame or Numpy array
+   :param y_train: Target class labels for data in X_train.
+   :type y_train: Pandas series or Numpy array
+   :param ensemble_method: Whether prediction is made through voting or stacking. Possible values are: 'voting' or 'stacking'.
+   :type ensemble_method: str
+   :param test_data: Data to make predictions on.
+   :type test_data: Pandas data frame
+
+   :returns: Predicted class labels for test_data.
+   :rtype: Numpy array
+
+   .. rubric:: Examples
+
+   >>> estimators = [
+   ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+   ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+   ... ]
+   >>> ensemble_predict(estimators, X, y, unseen_data, 'voting')
+
+

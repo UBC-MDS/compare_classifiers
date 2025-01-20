@@ -1,0 +1,36 @@
+check_valid_X
+=============
+
+.. py:module:: check_valid_X
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   check_valid_X.check_valid_X
+
+
+Module Contents
+---------------
+
+.. py:function:: check_valid_X(X, order)
+
+   Ensure X is a non-empty Pandas data frame or Numpy array, and raise errors according to conditions of failed check
+
+   :param X (Any):
+   :type X (Any): The input value to process
+   :param Raises:
+   :param TypeError:
+   :type TypeError: If X is of an unsupported type
+   :param ValueError:
+   :type ValueError: If X is an empty Pandas data frame or Numpy array
+   :param Returns:
+   :param None:
+
+   .. rubric:: Examples
+
+   >>> check_valid_X([], 'first')
+
+

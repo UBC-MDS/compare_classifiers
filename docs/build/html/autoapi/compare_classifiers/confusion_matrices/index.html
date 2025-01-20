@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>compare_classifiers.confusion_matrices &mdash; compare_classifiers  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="compare_classifiers.ensemble_compare_f1" href="../ensemble_compare_f1/index.html" />
+    <link rel="prev" title="compare_classifiers.compare_f1" href="../compare_f1/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            compare_classifiers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../check_valid_X/index.html">check_valid_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../check_valid_y/index.html">check_valid_y</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">compare_classifiers</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../compare_f1/index.html">compare_classifiers.compare_f1</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">compare_classifiers.confusion_matrices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ensemble_compare_f1/index.html">compare_classifiers.ensemble_compare_f1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ensemble_predict/index.html">compare_classifiers.ensemble_predict</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../check_valid_estimators/index.html">check_valid_estimators</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">compare_classifiers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">compare_classifiers</a></li>
+      <li class="breadcrumb-item active">compare_classifiers.confusion_matrices</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/compare_classifiers/confusion_matrices/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-compare_classifiers.confusion_matrices">
+<span id="compare-classifiers-confusion-matrices"></span><h1>compare_classifiers.confusion_matrices<a class="headerlink" href="#module-compare_classifiers.confusion_matrices" title="Link to this heading"></a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#compare_classifiers.confusion_matrices.confusion_matrices" title="compare_classifiers.confusion_matrices.confusion_matrices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">confusion_matrices</span></code></a>(estimators, X_train, X_test, ...)</p></td>
+<td><p>Display confusion matrices for multiple estimators on a dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="compare_classifiers.confusion_matrices.confusion_matrices">
+<span class="sig-prename descclassname"><span class="pre">compare_classifiers.confusion_matrices.</span></span><span class="sig-name descname"><span class="pre">confusion_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/compare_classifiers/confusion_matrices.html#confusion_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compare_classifiers.confusion_matrices.confusion_matrices" title="Link to this definition"></a></dt>
+<dd><p>Display confusion matrices for multiple estimators on a dataset.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>estimators<span class="classifier">list of tuples</span></dt><dd><p>A list of (name, estimator) tuples, each containing a string: name/label of estimator, and a model: the estimator, which implements
+the scikit-learn API (<cite>fit</cite>, <cite>predict</cite>, etc.).</p>
+</dd>
+<dt>X_train<span class="classifier">Pandas data frame or Numpy array</span></dt><dd><p>Data frame containing training data along with n features or ndarray with no feature names.</p>
+</dd>
+<dt>X_test<span class="classifier">Pandas data frame or Numpy array</span></dt><dd><p>Data frame containing test data along with n features or ndarray with no feature names.</p>
+</dd>
+<dt>y_train<span class="classifier">Pandas series or Numpy array</span></dt><dd><p>Target class labels for data in X_train.</p>
+</dd>
+<dt>y_test<span class="classifier">Pandas series or Numpy array</span></dt><dd><p>Target class labels for data in X_test.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>fig<span class="classifier">matplotlib.figure.Figure</span></dt><dd><p>The figure object containing all the subplots (axes) for the confusion matrices. This object manages the layout and rendering of the entire plot.</p>
+</dd>
+<dt>axes<span class="classifier">numpy.ndarray or list of matplotlib.axes.Axes</span></dt><dd><p>A 2D array (or list) of axes objects where the confusion matrices are plotted. Each element represents an individual subplot (axis) within the grid.</p>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;svm&#39;</span><span class="p">,</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)))</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">confusion_matrices</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../compare_f1/index.html" class="btn btn-neutral float-left" title="compare_classifiers.compare_f1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../ensemble_compare_f1/index.html" class="btn btn-neutral float-right" title="compare_classifiers.ensemble_compare_f1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bryan Lee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+check_valid_y
+=============
+
+.. py:module:: check_valid_y
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   check_valid_y.check_valid_y
+
+
+Module Contents
+---------------
+
+.. py:function:: check_valid_y(y, order)
+
+   Ensure y is a non-empty Pandas series or Numpy array, and raise errors according to conditions of failed check
+
+   :param y (Any):
+   :type y (Any): The input value to process
+   :param Raises:
+   :param TypeError:
+   :type TypeError: If y is of an unsupported type
+   :param ValueError:
+   :type ValueError: If y is an empty Pandas series or Numpy array
+   :param Returns:
+   :param None:
+
+   .. rubric:: Examples
+
+   >>> check_valid_y(np.empty(0), 'second')
+
+

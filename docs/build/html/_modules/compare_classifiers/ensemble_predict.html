@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>compare_classifiers.ensemble_predict &mdash; compare_classifiers  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            compare_classifiers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">compare_classifiers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">compare_classifiers.ensemble_predict</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for compare_classifiers.ensemble_predict</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">compare_classifiers.error_handling.check_valid_estimators</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_valid_estimators</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">compare_classifiers.error_handling.check_valid_X</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_valid_X</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">compare_classifiers.error_handling.check_valid_y</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_valid_y</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">VotingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">StackingClassifier</span>
+
+<span class="n">METHOD_ERROR</span> <span class="o">=</span> <span class="s1">&#39;fourth parameter has to be a string of two possible values: &quot;voting&quot; and &quot;stacking&quot;&#39;</span>
+
+<div class="viewcode-block" id="ensemble_predict">
+<a class="viewcode-back" href="../../autoapi/compare_classifiers/ensemble_predict/index.html#compare_classifiers.ensemble_predict.ensemble_predict">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ensemble_predict</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ensemble_method</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;predict class for test data with provided estimators and whether predicting through Voting or Stacking</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    estimators : list of tuples</span>
+<span class="sd">        A list of (name, estimator) tuples, consisting of individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements</span>
+<span class="sd">        the scikit-learn API (`fit`, `predict`, etc.).</span>
+<span class="sd">    X_train : Pandas data frame or Numpy array</span>
+<span class="sd">        Data frame containing training data along with n features or ndarray with no feature names.</span>
+<span class="sd">        </span>
+<span class="sd">    y_train : Pandas series or Numpy array</span>
+<span class="sd">        Target class labels for data in X_train.</span>
+
+<span class="sd">    ensemble_method : str</span>
+<span class="sd">        Whether prediction is made through voting or stacking. Possible values are: &#39;voting&#39; or &#39;stacking&#39;.</span>
+<span class="sd">        </span>
+<span class="sd">    test_data : Pandas data frame</span>
+<span class="sd">        Data to make predictions on.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Numpy array</span>
+<span class="sd">        Predicted class labels for test_data.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; estimators = [</span>
+<span class="sd">    ...     (&#39;rf&#39;, RandomForestClassifier(n_estimators=10, random_state=42)),</span>
+<span class="sd">    ...     (&#39;svm&#39;, make_pipeline(StandardScaler(), LinearSVC(random_state=42)))</span>
+<span class="sd">    ... ]</span>
+<span class="sd">    &gt;&gt;&gt; ensemble_predict(estimators, X, y, unseen_data, &#39;voting&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if estimators is valid or raise errors</span>
+    <span class="n">check_valid_estimators</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Check if X_train is valid or raise errors</span>
+    <span class="n">check_valid_X</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Check if y_train is valid or raise errors</span>
+    <span class="n">check_valid_y</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;third&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Check if ensemble_method is string</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ensemble_method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">METHOD_ERROR</span><span class="p">)</span>
+    <span class="c1"># Check if ensemble_method is either &#39;voting&#39; or &#39;stacking&#39;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">ensemble_method</span> <span class="o">==</span> <span class="s1">&#39;voting&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ensemble_method</span> <span class="o">==</span> <span class="s1">&#39;stacking&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">METHOD_ERROR</span><span class="p">)</span>
+    
+    <span class="c1"># Check if test_data is a Pandas data frame or raise errors</span>
+    <span class="n">check_valid_X</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="s1">&#39;fifth&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Return predictions if voting    </span>
+    <span class="k">if</span> <span class="n">ensemble_method</span> <span class="o">==</span> <span class="s1">&#39;voting&#39;</span><span class="p">:</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ev</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+    
+    <span class="c1"># Return predictions if stacking</span>
+    <span class="k">if</span> <span class="n">ensemble_method</span> <span class="o">==</span> <span class="s1">&#39;stacking&#39;</span><span class="p">:</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">StackingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bryan Lee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

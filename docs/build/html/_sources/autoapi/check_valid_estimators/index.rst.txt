@@ -1,0 +1,37 @@
+check_valid_estimators
+======================
+
+.. py:module:: check_valid_estimators
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   check_valid_estimators.check_valid_estimators
+
+
+Module Contents
+---------------
+
+.. py:function:: check_valid_estimators(estimators, order)
+
+   Ensure estimators is a list of (name, estimator) tuples, consisting of individual models or pipelines to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements
+       the scikit-learn API (`fit`, `predict`, etc.), and raise errors according to conditions of failed check
+
+   :param estimators (Any):
+   :type estimators (Any): The input value to process
+   :param Raises:
+   :param TypeError:
+   :type TypeError: If estimators is of an unsupported type
+   :param ValueError:
+   :type ValueError: If estimators is a list that contains 0 or 1 element
+   :param Returns:
+   :param None:
+
+   .. rubric:: Examples
+
+   >>> check_valid_X([], 'first')
+
+

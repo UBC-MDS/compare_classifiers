@@ -1,0 +1,39 @@
+compare_classifiers.ensemble_compare_f1
+=======================================
+
+.. py:module:: compare_classifiers.ensemble_compare_f1
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   compare_classifiers.ensemble_compare_f1.ensemble_compare_f1
+
+
+Module Contents
+---------------
+
+.. py:function:: ensemble_compare_f1(estimators, X_train, y_train)
+
+   Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
+
+   :param estimators: A list of (name, estimator) tuples, consisting of individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements
+                      the scikit-learn API (`fit`, `predict`, etc.).
+   :type estimators: list of tuples
+   :param X_train: Data frame containing training data along with n features or ndarray with no feature names.
+   :type X_train: Pandas data frame
+   :param y_train: Target class labels for data in X_train.
+   :type y_train: Pandas series or Numpy array
+
+   :returns: * *Pandas data frame* -- A data frame showing cross validation results on training data, with 3 columns: fit_time, test_score, train_score and 2 rows: voting, stacking.
+             * *Example*
+             * *--------*
+             * *>>> estimators = [*
+             * *...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),*
+             * *...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))*
+             * *... ]*
+             * *>>> ensemble_compare_f1(estimators, X, y)*
+
+

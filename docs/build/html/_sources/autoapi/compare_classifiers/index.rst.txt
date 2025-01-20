@@ -1,0 +1,31 @@
+compare_classifiers
+===================
+
+.. py:module:: compare_classifiers
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/compare_classifiers/compare_f1/index
+   /autoapi/compare_classifiers/confusion_matrices/index
+   /autoapi/compare_classifiers/ensemble_compare_f1/index
+   /autoapi/compare_classifiers/ensemble_predict/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   compare_classifiers.__version__
+
+
+Package Contents
+----------------
+
+.. py:data:: __version__
+

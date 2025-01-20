@@ -1,0 +1,56 @@
+compare_classifiers.confusion_matrices
+======================================
+
+.. py:module:: compare_classifiers.confusion_matrices
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   compare_classifiers.confusion_matrices.confusion_matrices
+
+
+Module Contents
+---------------
+
+.. py:function:: confusion_matrices(estimators, X_train, X_test, y_train, y_test)
+
+   Display confusion matrices for multiple estimators on a dataset.
+
+   Parameters:
+   -----------
+   estimators : list of tuples
+       A list of (name, estimator) tuples, each containing a string: name/label of estimator, and a model: the estimator, which implements
+       the scikit-learn API (`fit`, `predict`, etc.).
+
+   X_train : Pandas data frame or Numpy array
+       Data frame containing training data along with n features or ndarray with no feature names.
+
+   X_test : Pandas data frame or Numpy array
+       Data frame containing test data along with n features or ndarray with no feature names.
+
+   y_train : Pandas series or Numpy array
+       Target class labels for data in X_train.
+
+   y_test : Pandas series or Numpy array
+       Target class labels for data in X_test.
+
+   Returns:
+   --------
+   fig : matplotlib.figure.Figure
+       The figure object containing all the subplots (axes) for the confusion matrices. This object manages the layout and rendering of the entire plot.
+
+   axes : numpy.ndarray or list of matplotlib.axes.Axes
+       A 2D array (or list) of axes objects where the confusion matrices are plotted. Each element represents an individual subplot (axis) within the grid.
+
+   Example:
+   --------
+   >>> estimators = [
+   ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+   ...     ('svm', make_pipeline(StandardScaler(), LinearSVC(random_state=42)))
+   ... ]
+   >>> confusion_matrices(estimators, X_train, X_test, y_train, y_test)
+
+
