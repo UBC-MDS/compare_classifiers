@@ -1,11 +1,10 @@
-import pandas as pd, numpy as np
+from compare_classifiers.error_handling.check_valid_estimators import check_valid_estimators
+from compare_classifiers.error_handling.check_valid_X import check_valid_X
+from compare_classifiers.error_handling.check_valid_y import check_valid_y
 
-import sklearn
 from sklearn.ensemble import VotingClassifier
 from sklearn.ensemble import StackingClassifier
-from sklearn.base import is_classifier
 
-ESTIMATOR_ERROR = 'first parameter has to be a list of (name, estimator) tuples where name is a string and estimator is a sklearn Classifier or pipeline'
 METHOD_ERROR = 'fourth parameter has to be a string of two possible values: "voting" and "stacking"'
 
 def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
@@ -14,8 +13,8 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     Parameters
     ----------
     estimators : list of tuples
-        Individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: label of estimator, and a model: the estimator.
-
+        A list of (name, estimator) tuples, consisting of individual estimators to be processed through the voting or stacking classifying ensemble. Each tuple contains a string: name/label of estimator, and a model: the estimator, which implements
+        the scikit-learn API (`fit`, `predict`, etc.).
     X_train : Pandas data frame or Numpy array
         Data frame containing training data along with n features or ndarray with no feature names.
         
@@ -42,45 +41,14 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     >>> ensemble_predict(estimators, X, y, unseen_data, 'voting')
     """
 
-    # Check if estimators is a list
-    if not isinstance(estimators, list):
-        raise TypeError(ESTIMATOR_ERROR)
-    # Check if estimators is a list
-    if len(estimators) == 0:
-        raise ValueError(ESTIMATOR_ERROR)
-    # Iterate through each element in the list
-    for item in estimators:
-        # Check if the item is a tuple with exactly two elements
-        if not (isinstance(item, tuple) and len(item) == 2):
-            raise TypeError(ESTIMATOR_ERROR)
-        # Check if the first element is a string
-        if not isinstance(item[0], str):
-            raise TypeError(ESTIMATOR_ERROR)
-        # Check if the second element is an instance of an sklearn classifier
-        is_classifier_pipe = isinstance(item[1], sklearn.pipeline.Pipeline) and is_classifier(sklearn.item[1].steps[-1][1])
-        if not (is_classifier(item[1]) or is_classifier_pipe):
-            raise TypeError(ESTIMATOR_ERROR)
-    # Check there are more than one estimators
-    if len(estimators) == 1:
-        raise ValueError('first parameter must be a list of at least 2 tuples')
+    # Check if estimators is valid or raise errors
+    check_valid_estimators(estimators, 'first')
     
-    # Check if X_train is Pandas data frame or Numpy array
-    if not (isinstance(X_train, pd.DataFrame) or isinstance(X_train, np.ndarray)):
-        raise TypeError('second parameter has to be a Pandas data frame or Numpy array containing training data')   
-    # Check if X_train contains data
-    empty_df = isinstance(X_train, pd.DataFrame) and X_train.empty
-    empty_ndarr = isinstance(X_train, np.ndarray) and X_train.size == 0
-    if (empty_df or empty_ndarr):
-        raise ValueError('second parameter seems to be an empty Pandas data frame or Numpy array. Please ensure data is present.') 
+    # Check if X_train is valid or raise errors
+    check_valid_X(X_train, 'second')
     
-    # Check if y_train is Pandas series
-    if not (isinstance(y_train, pd.Series) or isinstance(y_train, np.ndarray)):
-        raise TypeError('third parameter has to be a Pandas series or Numpy array containing target class values for training data')
-    # Check if y_train contains data
-    empty_series = isinstance(y_train, pd.Series) and y_train.empty
-    empty_ndarr = isinstance(y_train, np.ndarray) and y_train.size == 0
-    if (empty_series or empty_ndarr):
-        raise ValueError('third parameter seems to be an empty Pandas series. Please ensure your series contains data.') 
+    # Check if y_train is valid or raise errors
+    check_valid_y(y_train, 'third')
     
     # Check if ensemble_method is string
     if not isinstance(ensemble_method, str):
@@ -89,14 +57,8 @@ def ensemble_predict(estimators, X_train, y_train, ensemble_method, test_data):
     if (not ensemble_method == 'voting' and not ensemble_method == 'stacking'):
         raise ValueError(METHOD_ERROR)
     
-    # Check if test_data is a Pandas data frame
-    if not (isinstance(test_data, pd.DataFrame) or isinstance(test_data, np.ndarray)):
-        raise TypeError('fifth parameter has to be a Pandas data frame or Numpy array containing training data')
-    # Check if test_data contains data
-    empty_df = isinstance(test_data, pd.DataFrame) and test_data.empty
-    empty_ndarr = isinstance(test_data, np.ndarray) and test_data.size == 0
-    if (empty_df or empty_ndarr):
-        raise ValueError('fifth parameter seems to be an empty Pandas data frame or Numpy array. Please ensure data is present.') 
+    # Check if test_data is a Pandas data frame or raise errors
+    check_valid_X(test_data, 'fifth')
 
     # Return predictions if voting    
     if ensemble_method == 'voting':

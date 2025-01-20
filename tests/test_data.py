@@ -46,7 +46,7 @@ def models():
     """Create models as estimators for function tests.
     Note: Please use individual classifiers with X_train_ss and X_test_ss and pipeline with X_train and X_test_rs"""
 
-    # valid data
+    # create valid classifiers
     rf = RandomForestClassifier(n_estimators=10, random_state=seed)
     svm = SVC(kernel='rbf', decision_function_shape='ovr', random_state=seed)
     logreg = LogisticRegression(multi_class='multinomial', solver='lbfgs', random_state=seed)
@@ -59,9 +59,33 @@ def models():
     pipe_gb = make_pipeline(RobustScaler(), gb)
     pipe_mnp = make_pipeline(RobustScaler(), mnp)
 
-    # invalid data
+    # create lists of valid estimators
+    knn5_and_mnb = [
+    ('knn5', knn5),
+    ('mnp', mnp)
+    ]
+    two_pipes = [
+        ('pipe_rf', pipe_rf),
+        ('pipe_svm', pipe_svm)
+    ]
+    multi_ind = [
+        ('logreg', logreg),
+        ('gb', gb),
+        ('svm', svm),
+        ('rf', rf),
+        ('knn5', knn5)
+    ]
+    multi_pipe = [
+        ('pipe_svm', pipe_svm),
+        ('pipe_rf', pipe_rf),
+        ('pipe_knn5', pipe_knn5),
+        ('pipe_gb', pipe_gb),
+        ('pipe_mnp', pipe_mnp)
+    ]
+
+    # create invalid estimators
     rfr = RandomForestRegressor()
     pipe_regressor = make_pipeline(RobustScaler(), rfr)
     
-    return {'rf': rf, 'svm': svm, 'logreg': logreg, 'gb': gb, 'knn5': knn5, 'mnp': mnp, 'pipe_svm': pipe_svm, 'pipe_rf': pipe_rf, 'pipe_knn5': pipe_knn5, 'pipe_gb': pipe_gb, 'pipe_mnp': pipe_mnp, 'rfr': rfr, 'pipe_regressor': pipe_regressor}
+    return {'knn5': knn5, 'knn5_and_mnb': knn5_and_mnb, 'two_pipes': two_pipes, 'multi_ind': multi_ind, 'multi_pipe': multi_pipe, 'rfr': rfr, 'pipe_regressor': pipe_regressor}
 
