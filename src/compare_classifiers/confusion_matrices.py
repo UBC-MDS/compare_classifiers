@@ -69,7 +69,7 @@ def confusion_matrices(estimators, X_train, X_test, y_train, y_test):
     fig, axes = plt.subplots(nrows=len(classifiers), ncols=1, figsize=(5*len(classifiers),5*len(classifiers)))
     for cls, ax in zip(classifiers, axes.flatten()):
         ConfusionMatrixDisplay(
-            confusion_matrix=confusion_matrix(y_test[:50], cls.predict(X_test)[:50], labels=cls.classes_), 
+            confusion_matrix=confusion_matrix(y_test, cls.predict(X_test), labels=cls.classes_), 
             display_labels=cls.classes_).plot(ax=ax)
         ax.title.set_text(labels[classifiers.index(cls)])
     plt.tight_layout()  
