@@ -1,4 +1,4 @@
-# compare_classifiers
+# compare_classifiers [![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
 
 Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking!
 
