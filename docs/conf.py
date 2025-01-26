@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath('../compare_classifiers'))
 # -- Project information -----------------------------------------------------
 
 project = u"compare_classifiers"
-copyright = u"2025, Bryan Lee"
+copyright = u"2025, Bryan Lee, Susannah Sun, Wangkai Zhu, Ke Gao"
 author = u"Bryan Lee, Susannah Sun, Wangkai Zhu, Ke Gao"
 
 # -- General configuration ---------------------------------------------------
