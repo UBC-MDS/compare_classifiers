@@ -1,4 +1,4 @@
-# compare_classifiers
+# compare_classifiers [![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
 
 Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking!
 
@@ -46,13 +46,13 @@ estimators = [
 ]
 
 # show confusion matrices for estimators:
-confusion_matrices(estimators, X, y)
+confusion_matrices(estimators, X_train, X_test, y_train, y_test)
 
 # show fit time and f1 scores of estimators' cross validation results:
-compare_f1(estimators, X, y) 
+compare_f1(estimators, X_train, y_train) 
 
 # show cross validation fit time and f1 scores by voting and stacking the estimators:
-ensemble_compare_f1(estimators, X, y) 
+ensemble_compare_f1(estimators, X_train, y_train) 
 ```
 
 At last, you can decide to predict on test data through voting or stacking the estimators:
@@ -61,7 +61,7 @@ At last, you can decide to predict on test data through voting or stacking the e
 from compare_classifiers.ensemble_predict import ensemble_predict
 
 # predict class labels for unseen data through voting results of estimators:
-ensemble_predict(estimators, X, y, ensemble_method, unseen_data, 'voting') 
+ensemble_predict(estimators, X_train, y_train, ensemble_method, unseen_data, 'voting') 
 ```
 
 ## Similar Packages
