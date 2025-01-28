@@ -97,23 +97,3 @@ jobs:
         if: steps.release.outputs.released == 'true'
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-
-      # - name: Commit and push changes
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-      #     git checkout -b release-branch
-      #     git add .
-      #     git commit -m "Automated changes from CI"
-      #     git push origin release-branch
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      # - name: Create a pull request
-      #   uses: peter-evans/create-pull-request@v5
-      #   with:
-      #     token: ${{ secrets.GH_TOKEN }}
-      #     branch: release-branch
-      #     title: "Automated Release"
-      #     body: "This pull request was created automatically by the CI/CD pipeline for merging into main."
-      #     base: main
