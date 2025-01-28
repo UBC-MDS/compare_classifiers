@@ -1,5 +1,6 @@
 name: ci-cd
 
+# change to action on PR
 on:
   pull_request:
     branches:
