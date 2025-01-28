@@ -48,7 +48,7 @@ jobs:
     needs: ci
 
     # Only run this job when PR's are being merged into "main"
-    if: github.event.pull_request.merged == true && github.base_ref == 'main'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
 
     # Set up operating system
     runs-on: ubuntu-latest
