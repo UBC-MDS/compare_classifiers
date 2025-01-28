@@ -115,5 +115,5 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           branch: release-branch
           title: "Automated Release"
-          body: "This pull request was created automatically by the CI/CD pipeline."
+          body: "This pull request was created automatically by the CI/CD pipeline for merging into main."
           base: main
