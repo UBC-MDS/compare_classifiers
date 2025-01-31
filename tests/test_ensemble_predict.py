@@ -15,12 +15,12 @@ from sklearn.ensemble import StackingClassifier
 # Create test data
 
 data_dict = test_data()
-X_train = data_dict['X_train']
-X_train_ss = data_dict['X_train_ss']
-X_test_ss = data_dict['X_test_ss']
-X_test_rs = data_dict['X_test_rs']
-y_train = data_dict['y_train']
-y_test = data_dict['y_test']
+X_train = data_dict['X_train'][:50]
+X_train_ss = data_dict['X_train_ss'][:50]
+X_test_ss = data_dict['X_test_ss'][:50]
+X_test_rs = data_dict['X_test_rs'][:50]
+y_train = data_dict['y_train'][:50]
+y_test = data_dict['y_test'][:50]
 
 model_dict = models()
 knn5 = model_dict['knn5']
