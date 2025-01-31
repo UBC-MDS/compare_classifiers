@@ -1,4 +1,10 @@
-# compare_classifiers [![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
+# compare_classifiers 
+[![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
+![Repo Status](https://img.shields.io/badge/repo%20status-Active-brightgreen)
+![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)
+![Docs](https://img.shields.io/badge/docs-passing-brightgreen)
+![CI/CD](https://github.com/UBC-MDS/compare_classifiers/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/UBC-MDS/compare_classifiers/graph/badge.svg?token=Divjf41jU3)](https://codecov.io/gh/UBC-MDS/compare_classifiers)
 
 Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking!
 
@@ -16,7 +22,10 @@ Before using `ensemble_predict` on test or unseen data, we recommend that you ru
 
 ## Contributors
 
-Ke Gao, Bryan Lee, Susannah Sun, Wangkai Zhu
+Ke Gao: kegao1995@gmail.com
+Bryan Lee
+Susannah Sun
+Wangkai Zhu
 
 ## Installation
 
