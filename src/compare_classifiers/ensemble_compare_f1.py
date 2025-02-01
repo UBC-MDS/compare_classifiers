@@ -8,8 +8,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
 def ensemble_compare_f1(estimators, X_train, y_train):
-    """
-    Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
+    """Show cross validation results, including fit time and f1 scores by stacking and voting the estimators.
 
     Parameters
     ----------
@@ -28,7 +27,7 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     Pandas data frame
         A data frame showing cross validation results on training data, with 3 columns: fit_time, test_score, train_score and 2 rows: voting, stacking.
     
-    Example:
+    Examples
     --------
     >>> estimators = [
     ...     ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
@@ -36,6 +35,7 @@ def ensemble_compare_f1(estimators, X_train, y_train):
     ... ]
     >>> ensemble_compare_f1(estimators, X, y)
     """
+
     # Check if estimators is valid or raise errors
     check_valid_estimators(estimators, 'first')
     
