@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 1.0.1 (2025-02-01)
+## 1.1.0 (2025-02-01)
 
 ### Bug Fixes
 
@@ -32,6 +32,6 @@ Besides above fixes, we have already resolved some issues mentioned in previous 
 * Though there is slight overlap between `compare_f1.py` and `ensemble_compare_f1.py`, it is not enough be refactored into a new helper function without generating significantly more lines of code, therefore no further change should be made.
 * Using the same set of test data across all test functions is a good idea, though we did think using more than one dataset improves robustness of testing. We need to think of a solution in the future to include a variety of test data so we don't only rely on one single dataset for testing. For now, we will leave this as is because we have not come up with a solution.
 
-## v0.1.0 (07/01/2025)
+## 0.1.0 (07/01/2025)
 
 - First release of `compare_classifiers`!
