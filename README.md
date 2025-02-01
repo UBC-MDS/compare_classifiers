@@ -1,8 +1,8 @@
 # compare_classifiers 
 [![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
-![Repo Status](https://img.shields.io/badge/repo%20status-Active-brightgreen)
-![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)
-![CI/CD](https://github.com/UBC-MDS/compare_classifiers/actions/workflows/ci-cd.yml/badge.svg)
+[![Repo Status](https://img.shields.io/badge/repo%20status-Active-brightgreen)](https://github.com/UBC-MDS/compare_classifiers)  
+[![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)  
+[![CI/CD](https://github.com/UBC-MDS/compare_classifiers/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/compare_classifiers/actions)  
 [![codecov](https://codecov.io/gh/UBC-MDS/compare_classifiers/graph/badge.svg?token=Divjf41jU3)](https://codecov.io/gh/UBC-MDS/compare_classifiers)
 
 Compare metrics such as f1 score and confusion matrices for your machine learning models and through voting or stacking them, then predict on test data with your choice of voting or stacking!
@@ -38,8 +38,7 @@ We have attached a downloaded version of the [UCI Wine Quality dataset](https://
 
 ## Usage
 
-`compare_classifiers` can be used to show confusion matrices and f1 scores for individual estimators, as well as f1 score for voting or stacking the estimators,
-as follows:
+`compare_classifiers` can be used to show confusion matrices and f1 scores for individual estimators, as well as f1 score for voting or stacking the estimators. We made a [tutorial with detailed documentation](https://compare-classifiers-524.readthedocs.io/en/latest/example.html) and here is a brief overview of how to use the package:
 
 ### Step 1: Read in Data and Initial Processing
 
