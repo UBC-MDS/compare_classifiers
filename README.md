@@ -24,7 +24,7 @@ Before using `ensemble_predict` on test or unseen data, we recommend that you ru
 Ke Gao (kegao1995@gmail.com),
 Bryan Lee (bryan.lee.9000@gmail.com),
 Susannah Sun (x.sun@alumni.ubc.ca),
-Wangkai Zhu
+Wangkai Zhu (wzhu8410@gmail.com)
 
 ## Installation
 
