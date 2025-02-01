@@ -72,7 +72,7 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN }}
 
       - name: Generate changelog
-        run: npx standard-version --no-verify
+        run: npx standard-version --release-as minor
 
       - name: Push changes and tags
         run: |
