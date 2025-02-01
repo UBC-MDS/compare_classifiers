@@ -74,6 +74,10 @@ jobs:
       - name: Generate changelog
         run: npx standard-version --no-verify
 
+      - name: Push changes and tags
+        run: |
+          git push origin HEAD:release --follow-tags
+
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         if: steps.release.outputs.released == 'true'
