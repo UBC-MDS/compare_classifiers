@@ -28,10 +28,7 @@ def confusion_matrices(estimators, X_train, X_test, y_train, y_test):
         Target class labels for data in X_test.
     
     Returns:
-    --------
-    fig : matplotlib.figure.Figure
-        The figure object containing all the subplots (axes) for the confusion matrices. This object manages the layout and rendering of the entire plot.
-    
+    --------    
     axes : numpy.ndarray or list of matplotlib.axes.Axes
         A 2D array (or list) of axes objects where the confusion matrices are plotted. Each element represents an individual subplot (axis) within the grid.
 
@@ -75,4 +72,4 @@ def confusion_matrices(estimators, X_train, X_test, y_train, y_test):
     plt.tight_layout()  
     plt.show()
 
-    return fig, axes
+    return axes
