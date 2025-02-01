@@ -9,6 +9,8 @@ def check_valid_estimators(estimators, order):
     ----------
     estimators (Any): The input value to process
 
+    order (Str): The order in which `estimators` was passed as input parameters in the calling function
+
     Raises:
     TypeError: If estimators is of an unsupported type
     ValueError: If estimators is a list that contains 0 or 1 element

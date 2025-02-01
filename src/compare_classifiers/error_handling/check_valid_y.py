@@ -7,6 +7,8 @@ def check_valid_y(y, order):
     ----------
     y (Any): The input value to process
 
+    order (Str): The order in which `estimators` was passed as input parameters in the calling function
+
     Raises:
     TypeError: If y is of an unsupported type
     ValueError: If y is an empty Pandas series or Numpy array
