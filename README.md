@@ -32,44 +32,89 @@ Wangkai Zhu
 $ pip install compare_classifiers
 ```
 
+## Example Dataset
+
+We have attached a downloaded version of the [UCI Wine Quality dataset](https://archive.ics.uci.edu/dataset/186/wine+quality), named 'example_dataset.csv'. The dataset contains physicochemical features as numerical values of wines and a `color` column containing text 'red' or 'white' for wine color, and a target variable, column `quality`, representing wine quality scores, with integer values from 3 to 9 (9 = highest quality; 3 = lowest quality).
+
 ## Usage
 
 `compare_classifiers` can be used to show confusion matrices and f1 scores for individual estimators, as well as f1 score for voting or stacking the estimators,
 as follows:
+
+### Step 1: Read in Data and Initial Processing
+
+> _**Note:**_ We changed an original dataset column, `color` containing text indicating a wine being 'red' or 'white' into a binary column now named `is_red` with 1 indicating red wine, and 0 indicating white wine. This ensures all columns are numeric and facilitates the upcoming training process for our models.
+
+```python
+import pandas as pd
+  
+example_dataset = pd.read_csv('../example_dataset.csv')
+
+# convert the `color` column to a binary variable: `is_red`: red = 1, white = 0, and drop the original `color` column
+example_dataset['is_red'] = example_dataset['color'].apply(lambda x: 1 if x == 'red' else 0)
+example_dataset = example_dataset.drop(['color'], axis=1)
+
+# move the `color` column to the beginning
+last_col = example_dataset.pop(example_dataset.columns[-1])
+example_dataset.insert(0, last_col.name, last_col)
+```
+
+### Step 2: Train + Test Data Split
+
+```python
+from sklearn.model_selection import train_test_split
+
+train_df, test_df = train_test_split(example_dataset, test_size=0.2)
+X_train, X_test, y_train, y_test = (
+    train_df.drop(columns='quality'), test_df.drop(columns='quality'),
+    train_df['quality'], test_df['quality']
+)
+```
+
+### Step 3: Compare Models and Ensembles
 
 ```python
 from compare_classifiers.confusion_matrices import confusion_matrices
 from compare_classifiers.compare_f1 import compare_f1
 from compare_classifiers.ensemble_compare_f1 import ensemble_compare_f1
 
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import LinearSVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
+
+logreg = LogisticRegression(multi_class='multinomial', solver='lbfgs', C=92)
+gb = GradientBoostingClassifier(learning_rate=0.001, n_estimators=1000)
+svm = SVC(kernel='rbf', decision_function_shape='ovr', max_iter=2000)
+rf = RandomForestClassifier(n_estimators=10)
+knn5 = KNeighborsClassifier(n_neighbors=5)
 
 estimators = [
-    ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
-    ('svr', make_pipeline(StandardScaler(),
-                          LinearSVC(random_state=42)))
+    ('logreg', logreg),
+    ('gb', gb),
+    ('svm', svm),
+    ('rf', rf),
+    ('knn5', knn5)
 ]
 
 # show confusion matrices for estimators:
 confusion_matrices(estimators, X_train, X_test, y_train, y_test)
 
-# show fit time and f1 scores of estimators' cross validation results:
+# show cross validation fit time and f1 scores of each estimator:
 compare_f1(estimators, X_train, y_train) 
 
 # show cross validation fit time and f1 scores by voting and stacking the estimators:
 ensemble_compare_f1(estimators, X_train, y_train) 
 ```
 
-At last, you can decide to predict on test data through voting or stacking the estimators:
+### (Optional) Step 4: Predict Using Ensemble
 
 ```python
 from compare_classifiers.ensemble_predict import ensemble_predict
 
 # predict class labels for unseen data through voting results of estimators:
-ensemble_predict(estimators, X_train, y_train, ensemble_method, unseen_data, 'voting') 
+ensemble_predict(estimators, X_train, y_train, 'voting', X_test) 
 ```
 
 ## Similar Packages
@@ -82,7 +127,7 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 ## License
 
-`compare_classifiers` was created by Bryan Lee. It is licensed under the terms of the MIT license.
+`compare_classifiers` was created by Ke Gao, Bryan Lee, Susannah Sun, and Wangkai Zhu. It is licensed under the terms of the MIT license.
 
 ## Credits
 
