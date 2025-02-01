@@ -2,7 +2,6 @@
 [![Documentation Status](https://readthedocs.org/projects/compare-classifiers-524/badge/?version=latest)](https://compare-classifiers-524.readthedocs.io/en/latest/?badge=latest)
 ![Repo Status](https://img.shields.io/badge/repo%20status-Active-brightgreen)
 ![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)
-![Docs](https://img.shields.io/badge/docs-passing-brightgreen)
 ![CI/CD](https://github.com/UBC-MDS/compare_classifiers/actions/workflows/ci-cd.yml/badge.svg)
 [![codecov](https://codecov.io/gh/UBC-MDS/compare_classifiers/graph/badge.svg?token=Divjf41jU3)](https://codecov.io/gh/UBC-MDS/compare_classifiers)
 
