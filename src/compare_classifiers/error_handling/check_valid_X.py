@@ -7,6 +7,8 @@ def check_valid_X(X, order):
     ----------
     X (Any): The input value to process
 
+    order (Str): The order in which `estimators` was passed as input parameters in the calling function
+
     Raises:
     TypeError: If X is of an unsupported type
     ValueError: If X is an empty Pandas data frame or Numpy array
