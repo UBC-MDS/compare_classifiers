@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## 1.1.0 (2025-02-01)
+## 1.2.0 (2025-02-01)
 
 ### Bug Fixes
 
@@ -16,7 +16,6 @@ All notable changes to this project will be documented in this file. See [standa
 * Feedback addressed by nvarabioff ([ab269bb](https://github.com/UBC-MDS/compare_classifiers/commit/ab269bbbe655aca139e0ed4a33bfdacedcf7d423))
 * feedback addressed by peer review in issue [#84](https://github.com/UBC-MDS/compare_classifiers/issues/84): added contributor email addresses in README ([32c2bb3](https://github.com/UBC-MDS/compare_classifiers/commit/32c2bb3484f021fc3f9e2d195db2f4fa5331acc4))
 * feedback addressed by peer views in issue [#87](https://github.com/UBC-MDS/compare_classifiers/issues/87): made code in example.ipynb and README runable; updated author name orders in pyproject.toml to match rest of the project; uploaded example dataset as .csv to root dir and added in explanation of dataset in README ([9c9f608](https://github.com/UBC-MDS/compare_classifiers/commit/9c9f6080286977036a80a4cc82f040df8f08d4a6))
-
 
 ### Issues Addressed without Explicit Commits
 
@@ -32,6 +31,16 @@ Besides above fixes, we have already resolved some issues mentioned in previous 
 * Though there is slight overlap between `compare_f1.py` and `ensemble_compare_f1.py`, it is not enough be refactored into a new helper function without generating significantly more lines of code, therefore no further change should be made.
 * Using the same set of test data across all test functions is a good idea, though we did think using more than one dataset improves robustness of testing. We need to think of a solution in the future to include a variety of test data so we don't only rely on one single dataset for testing. For now, we will leave this as is because we have not come up with a solution.
 
+## 1.1.0 (25/01/2025)
+
+- Created documentation and tutorial on Read The Docs webiste and added RTD badge to README.md.
+- Updated poetry dependencies for latest package environment.
+
+## 1.1.0 (18/01/2025)
+
+- Created four package functions and corresponding test files for functions and helpers.
+
 ## 0.1.0 (07/01/2025)
 
-- First release of `compare_classifiers`!
+- Set up README.md, CONDUCT.md, CONTRIBUTING.md, LICENSE.md and required dependencies.
+- Created docstrings for package functions.
