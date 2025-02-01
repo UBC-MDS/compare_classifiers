@@ -1,7 +1,7 @@
 # Contributing
 
 Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given. This project was developed by Bryan Lee, Susannah Sun, Wangkai Zhu and Ke Gao.
+helps, and credit will always be given. This project was developed by Ke Gao, Bryan Lee, Susannah Sun, and Wangkai Zhu.
 
 ## Types of Contributions
 
